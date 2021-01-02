@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Compiler Design Edu Tool</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link rel="stylesheet" type="text/css" href="style1.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<script type="text/javascript">
+
+var correctCards = 0;
+$( init );
+
+function init() {
+
+  // Hide the success message
+  $('#successMessage').hide();
+  $('#successMessage').css( {
+    left: '580px',
+    top: '250px',
+    width: 0,
+    height: 0
+  } );
+
+  // Reset the game
+  correctCards = 0;
+  $('#cardPile').html( '' );
+  $('#cardSlots').html( '' );
+
+  // Create the pile of shuffled cards
+  var numbers = [ 1, 2, 3, 4, 5];
+  //var terms = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10' ];
+  var terms=[ 'LEXICAL ANALYSER', 'SYNTAX ANALYSER', 'SEMANTIC ANALYSER', 'CODE OPTIMIZER', 'CODE GENERATOR'  ];
+//numbers.sort( function() { return Math.random() - .5 } );
+
+function shuffle(array) {
+  for (let i = array.length - 1; i >= 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+shuffle(numbers);
+console.log(numbers);
+
+  for ( var i=0; i<5; i++ ) {
+    $('<div>' + terms[numbers[i]-1] + '</div>').data( 'number', numbers[i] ).attr( 'id', 'card'+numbers[i] ).appendTo( '#cardPile' ).draggable( {
+      stack: '#cardPile div',
+      cursor: 'move',
+      revert: true
+    } );
+  }
+
+  // Create the card slots
+  var words = [ '1', '2', '3','4', '5' ];
+  for ( var i=1; i<=5; i++ ) {
+    $('<div>' + words[i-1] + '</div>').data( 'number', i ).appendTo( '#cardSlots' ).droppable( {
+      accept: '#cardPile div',
+      hoverClass: 'hovered',
+      drop: handleCardDrop
+    } );
+  }
+
+}
+
+function handleCardDrop( event, ui ) {
+  var slotNumber = $(this).data( 'number' );
+  var cardNumber = ui.draggable.data( 'number' );
+
+  // If the card was dropped to the correct slot,
+  // change the card colour, position it directly
+  // on top of the slot, and prevent it being dragged
+  // again
+
+  if ( slotNumber == cardNumber ) {
+    ui.draggable.addClass( 'correct' );
+    ui.draggable.draggable( 'disable' );
+    $(this).droppable( 'disable' );
+    ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+    ui.draggable.draggable( 'option', 'revert', false );
+    correctCards++;
+  } 
+  
+  if ( correctCards == 5 ) {
+    $('#successMessage').show();
+    $('#successMessage').animate( {
+      left: '380px',
+      top: '100px',
+      width: '400px',
+      height: '100px',
+      opacity: 1
+    } );
+  }
+
+}
+
+</script>
+
+</head>
+<body>
+  <div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+      <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="./home.html" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hide-small">STRUCTURE OF COMPILER</a>
+      <a href="./index2.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">SYNTAX TREE GENERATION</a>
+      <a href="./index4.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">RECALL CONCEPTS</a>
+
+      <!-- <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">CONTACT US</a> -->
+      <!-- <div class="w3-dropdown-hover w3-hide-small">
+        <button class="w3-padding-large w3-button" title="More">MORE <i class="fa fa-caret-down"></i></button>     
+        <div class="w3-dropdown-content w3-bar-block w3-card-4">
+          <a href="#" class="w3-bar-item w3-button">Merchandise</a>
+          <a href="#" class="w3-bar-item w3-button">Extras</a>
+          <a href="#" class="w3-bar-item w3-button">Media</a>
+        </div>
+      </div> -->
+    </div>
+  </div>
+<div class="wideBox">
+  <h1>ARRANGE THE STRUCTURE OF THE COMPILER IN THE CORRECT ORDER</h1>
+  <h2>PARTS ARE GIVEN IN THE LEFT</h2>
+</div>
+
+<div id="content">
+
+  <div id="cardPile"> </div>
+  <div id="cardSlots"> </div>
+
+  <div id="successMessage">
+    <h2>Congratulations!</h2>
+    <button onclick="init()">Play Again</button>
+  </div>
+
+</div>
+
+<div class="wideBox">
+  <!-- <p>AS A PART OF COMPILER DESIGN PROJECT BY Kruthika, Pooja, Mansi, Naveen of CSE 6B </p>
+  <p style="font-size: .8em; line-height: 1.5em;"></p> -->
+</div>
+<footer class="w3-container w3-padding-45 w3-center w3-opacity w3-light-grey w3-xlarge">
+  <p class="w3-medium"><b>Made With ♡ as a part of CS61(Compiler Design)</b></p>
+  <p class="w3-medium"><b>By Pooja,Naveen,Mansi and Kruthika(CSE6B Class of 2021)</b> </p>
+</footer>
+</body>
+</html>
