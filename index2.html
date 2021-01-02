@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Rete.js (Events/Tasks)</title>
+  <link rel="stylesheet" href="./style2.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="text/javascript">
+
+    function genques() {
+
+      var qls = [ 5, 7, 9 ];
+      var qli = Math.floor(Math.random()*qls.length);
+      var ql = qls[qli];
+      var arr = new Array(ql);
+      for (var i=0; i< ql; i=i+2) {
+        arr[i]=Math.floor(Math.random()*10 + 1);
+      }
+      var ops = [ '+', '-', '*', '/'];
+      for (var i=1; i< ql; i=i+2) {
+        var a=Math.floor(Math.random()*ops.length);
+        arr[i] = ops[a];
+      }
+      return arr;
+    }
+    
+  </script>
+</head>
+<body>
+  <style>
+    .block {
+      display: block;
+      width: 100%;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 28px;
+      font-size: 36px;
+      cursor: pointer;
+      text-align: center;
+    }
+    
+    .block:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    </style>
+  <div class="w3-top">
+    <div class="w3-bar w3-black w3-card">
+      <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+      <a href="./home.html" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+      <a href="./index1.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">STRUCTURE OF COMPILER</a>
+      <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hide-small">SYNTAX TREE GENERATION</a>
+      <a href="./index4.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">RECALL CONCEPTS</a>
+      <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+    </div>
+  </div>
+
+<div class="wideBox">
+  <h1>BUILD THE SYNTAX TREE</h1>
+  <h2 id="ques">Q1: 5*2+3</h2>
+  <script>
+      var q = genques(); //QUES
+      var ques = "";
+      for (var i=0; i< q.length; i++) {
+        ques = ques + " " + q[i];
+      }
+      var a = eval(ques);
+     // alert(a) //ANS
+      //console.log(a);
+      document.getElementById("ques").innerHTML = ques;
+  
+  </script>
+</div>
+<button id="myButton" class="block" onclick="getans(q.length,a)">Check Answer</button>
+<script type="text/javascript">
+  // console.log(q.length);
+  // console.log(a);
+  // console.log(getans(q.length,a));
+</script>
+<div id="rete" class="node-editor"></div>
+
+<!--<a target="_blank" href="https://github.com/retejs/rete"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+-->
+<footer class="w3-container w3-padding-45 w3-center w3-opacity w3-light-grey w3-xlarge">
+  <button id="myButton2" class="block" onclick="location.replace('index2.html')">RESET QUESTION</button>
+  <p class="w3-medium"><b>Made With ♡ as a part of CS61(Compiler Design)</b></p>
+  <p class="w3-medium"><b>By Pooja,Naveen,Mansi and Kruthika(CSE6B Class of 2021)</b> </p>
+</footer>
+<script src='https://cdn.jsdelivr.net/npm/rete@1.4.3-rc.1/build/rete.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/rete-vue-render-plugin@0.3.5/build/vue-render-plugin.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/rete-connection-plugin@0.8.3-rc.1/build/connection-plugin.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/alight@0.14.1/alight.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/rete-context-menu-plugin@0.5.2/build/context-menu-plugin.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/rete-area-plugin@0.2.1/build/area-plugin.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/rete-comment-plugin@0.3.0/build/comment-plugin.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/rete-history-plugin@0.1.0/build/history-plugin.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/rete-connection-mastery-plugin@0.1.0/build/connection-mastery-plugin.min.js'></script>
+<script  src="./script2.js"></script>
+
+</body>
+</html>
