@@ -12,3 +12,7 @@ https://compilerdesign-edutool.netlify.app/
 https://youtu.be/C22hQKE_32c
 
 https://codepen.io/noyiri/pen/zeoRwB
+
+The project is deployed on cloud:
+
+ https://compilerdesign-edutool.netlify.app/
